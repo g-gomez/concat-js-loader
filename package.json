@@ -1,5 +1,5 @@
 {
-  "name": "raw-js-loader",
+  "name": "concat-js-loader",
   "version": "0.0.1",
   "main": "index.js",
   "description": "Simply wrap and concat some JS files",
