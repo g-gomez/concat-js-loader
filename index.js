@@ -6,11 +6,16 @@ module.exports = function (content) {
     if (!this.emitFile) {
         throw new Error("emitFile is required from module system");
     }
+    if (this.cacheable) {
+      this.cacheable();
+    }
 
     var query = loaderUtils.parseQuery(this.query) || {};
     var name = query.name || 'bundle.raw.js';
 
-    rawContent += content;
+    rawContent += content.toString();
     this.emitFile(name, '(function () {\n' + rawContent + '\n}());');
-    return rawContent;
+    return content;
 };
+
+module.exports.raw = true;
