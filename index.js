@@ -8,7 +8,8 @@
 
 var loaderUtils = require("loader-utils");
 
-var rawContent = '';
+var references = {};
+var rawContent = {};
 
 module.exports = function (content) {
     if (!this.emitFile) {
@@ -24,8 +25,20 @@ module.exports = function (content) {
         var query = loaderUtils.parseQuery(this.query) || {};
         var name = query.name || 'bundle.raw.js';
 
-        rawContent += content.toString();
-        this.emitFile(name, '(function () {\n' + rawContent + '\n}());');
+        if (!references[name]) {
+            references[name] = [];
+        }
+
+        if (references[name].indexOf(fileName) < 0) {
+            references[name].push(fileName);
+        }
+
+        rawContent[fileName] = content.toString();
+
+        for (newFile = '', i = 0; i < references[name].length; i++) {
+            newFile += rawContent[references[name][i]];
+        }
+        this.emitFile(name, '(function () {\n' + newFile + '\n}());');
     }
 
     return content;
