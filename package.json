@@ -1,8 +1,11 @@
 {
   "name": "concat-js-loader",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "index.js",
   "description": "Simply wrap and concat some JS files",
   "author": "Guillaume Gomez",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "loader-utils": "^1.0.2"
+  }
 }
