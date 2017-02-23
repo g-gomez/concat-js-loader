@@ -22,7 +22,7 @@ module.exports = function (content) {
 
     var fileName = this.resource;
     if (!fileName.match(/(node_modules|webpack)/)) {
-        var query = loaderUtils.parseQuery(this.query) || {};
+        var query = loaderUtils.getOptions(this) || {};
         var name = query.name || 'bundle.raw.js';
 
         if (!references[name]) {
